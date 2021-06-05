@@ -20,16 +20,20 @@ def check_if_id_is_valid(id_num):
     return False
 
 def ckeck_if_published_year_is_correct(year):
+    try:
+        year = int(year)
+    except ValueError:
+        print("\nError in published year! Have to be number! \n")
+        return False
     if year > 1500 and year < 2021:
         return True
     return False
 
-"""
-def ckeck_if_ISBN_is_correct(ISBN):   #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    if re.match(r'^(?:ISBN(?:-10)?:?\ )?(?=[0-9X]{10}$|(?=(?:[0-9]+[-\ ]){3})[-\ 0-9X]{13}$)[0-9]{1,5}[-\ ]?[0-9]+[-\ ]?[0-9]+[-\ ]?[0-9X]$', ISBN):  
+def ckeck_if_ISBN_is_correct(ISBN):   
+    if re.match(r'978(?:-?\d){10}', ISBN):  
         return True
     return False
-"""
+
 
 def ckeck_if_pages_are_correct(pages):
     if pages > 1 and pages < 9999:

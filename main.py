@@ -79,20 +79,12 @@ def add_book():
     author = input("Enter book's author: ")
     genre = input("Enter book's genre: ")
     published_year = input("Enter book's published year: ")
-    try:
-        published_year = int(published_year)
-    except ValueError:
-        print("\nError in published year! Have to be number! \n")
-        published_year = input("Enter book's published year: ")
-        published_year = int(published_year)
-    else:
-        while ckeck_if_published_year_is_correct(published_year) == False:
-            published_year = input("Published year is not valid! Try again: ")
+    while ckeck_if_published_year_is_correct(published_year) == False:
+        published_year = input("Published year is not valid! Try again: ")
     ISBN = input("Enter ISBN number: ")
-    """
-    while ckeck_if_ISBN_is_correct(int(ISBN)) == False:
+    while ckeck_if_ISBN_is_correct(ISBN) == False:
+        print("ISBN like these: 978-123-456-789-0 , 978-1234-567890 , 9781234567890")
         ISBN = input("ISBN number is not correct! Try again: ")
-    """
     series = input("Enter True - if the book is in series or False - if book isn't in series: ")
     while ckeck_if_series_are_correct(series) == False:
         series = input("You have to enter True - if the book is in series or False - if book isn't in series: ")
@@ -207,11 +199,10 @@ def print_book_with_id(id_num):
                     print(f"Book's num_in_series: {book['num_in_series']}")
                     print(f"Book's pages: {book['pages']}")
                     if len(book['rate']) > 0:
-                        sum_ = 0
-                        print(f"Book's rated:")   
+                        sum_ = 0  
                         for rate in book['rate']:
-                            sum_ = sum_ + (int(list(dict.values())[0]))
-                        #print(f"Average: {sum/len(book['rate'])}")
+                            sum_ = sum_ + (int(list(dict.values(rate))[0]))
+                        print(f"Book's rated: {sum_/len(book['rate'])}")
                     else:
                         print(f"Book's rated: {book['rate']}")
                     if len(book['comment']) > 0:
@@ -318,7 +309,7 @@ def comment_book(id_num, comment, u):
                 book["comment"].append({u["username"]: comment})
     with open("books.json", "w") as file:
         json.dump(file_data, file)
-    
+
 first_step = input("Press 1 for sign up or 2 for sign in: ")
 
 while first_step != "1" and first_step != "2":
@@ -422,7 +413,6 @@ while True:
         comment_book(int(book_id), comment, user)
     elif second_step == "9":
         break
-
 
 
 
