@@ -310,109 +310,116 @@ def comment_book(id_num, comment, u):
     with open("books.json", "w") as file:
         json.dump(file_data, file)
 
-first_step = input("Press 1 for sign up or 2 for sign in: ")
-
-while first_step != "1" and first_step != "2":
+def menu():
     first_step = input("Press 1 for sign up or 2 for sign in: ")
 
-if first_step == "1":
-    user = sign_up()
-else:
-    user = sign_in()
+    while first_step != "1" and first_step != "2":
+        first_step = input("Press 1 for sign up or 2 for sign in: ")
 
-while True:
-    print("Press 1 to see all books")
-    print("Press 2 to see book info id")
-    print("Press 3 to add book")
-    print("Press 4 to see/add/removw from your wish book list")
-    print("Press 5 to see/add/remove your reading book list")
-    print("Press 6 to see/add/remove/rate/review your read book list")
-    print("Press 7 to rate a book")
-    print("Press 8 to make a comment for book")
-    print("Press 9 to exit")
-    second_step = input("Enter number: ")
-    if second_step == "1":
-        print_all_books()
-    elif second_step == "2":
-        id_num = input("Enter id number of book you want to see: ")
-        try:
-            id_num = int(id_num)
-        except ValueError:
-            print("Id number have to be int!")
-        else:        
-            print_book_with_id(id_num)
-    elif second_step == "3":
-        add_book()
-    elif second_step == "4":
-        print("Press 1 to see your book wishlist ")
-        print("Press 2 to add book to your wishlist")
-        print("Press 3 to remove book from your wishlist")
-        wishlist = input("Enter number: ")
-        while wishlist != '1' and wishlist != '2' and wishlist != '3':
-            wishlist = input("You can enter only number betweem 1-3 (1 - see, 2 - add, 3 - remove)")
-        if wishlist == '1':
-            see_list(1, user)
-        elif wishlist == '2':
+    if first_step == "1":
+        user = sign_up()
+    else:
+        user = sign_in()
+
+    while True:
+        print("Press 1 to see all books")
+        print("Press 2 to see book info id")
+        print("Press 3 to add book")
+        print("Press 4 to see/add/removw from your wish book list")
+        print("Press 5 to see/add/remove your reading book list")
+        print("Press 6 to see/add/remove/rate/review your read book list")
+        print("Press 7 to rate a book")
+        print("Press 8 to make a comment for book")
+        print("Press 9 to exit")
+        second_step = input("Enter number: ")
+        if second_step == "1":
+            print_all_books()
+        elif second_step == "2":
+            id_num = input("Enter id number of book you want to see: ")
+            try:
+                id_num = int(id_num)
+            except ValueError:
+                print("Id number have to be int!")
+            else:        
+                print_book_with_id(id_num)
+        elif second_step == "3":
+            add_book()
+        elif second_step == "4":
+            print("Press 1 to see your book wishlist ")
+            print("Press 2 to add book to your wishlist")
+            print("Press 3 to remove book from your wishlist")
+            wishlist = input("Enter number: ")
+            while wishlist != '1' and wishlist != '2' and wishlist != '3':
+                wishlist = input("You can enter only number betweem 1-3 (1 - see, 2 - add, 3 - remove)")
+            if wishlist == '1':
+                see_list(1, user)
+            elif wishlist == '2':
+                book_id = input("Enter book_id of the book: ")
+                while check_if_id_is_valid(book_id) == False:
+                    book_id = input("You have entered wrong id! Try again: ")
+                add_to_list(1, book_id, user)
+            else:
+                book_id = input("Enter book_id of the book: ")
+                while check_if_id_is_valid(book_id) == False:
+                    book_id = input("You have entered wrong id! Try again: ")
+                remove_from_list(1, book_id, user)
+        elif second_step == "5":
+            print("Press 1 to see your reading book list ")
+            print("Press 2 to add book to your reading list")
+            print("Press 3 to remove book from your reading list")
+            wishlist = input("Enter number: ")
+            while wishlist != '1' and wishlist != '2' and wishlist != '3':
+                wishlist = input("You can enter only number betweem 1-3 (1 - see, 2 - add, 3 - remove)")
+            if wishlist == '1':
+                see_list(2, user)
+            elif wishlist == '2':
+                book_id = input("Enter book_id of the book: ")
+                while check_if_id_is_valid(book_id) == False:
+                    book_id = input("You have entered wrong id! Try again: ")
+                add_to_list(2, book_id, user)
+            else:
+                book_id = input("Enter book_id of the book: ")
+                while check_if_id_is_valid(book_id) == False:
+                    book_id = input("You have entered wrong id! Try again: ")
+                remove_from_list(1, book_id, user)
+        elif second_step == "6":
+            print("Press 1 to see your readed book list ")
+            print("Press 2 to add book to your readed book list")
+            print("Press 3 to remove book from your readed book list")
+            wishlist = input("Enter number: ")
+            while wishlist != '1' and wishlist != '2' and wishlist != '3':
+                wishlist = input("You can enter only number betweem 1-3 (1 - see, 2 - add, 3 - remove)")
+            if wishlist == '1':
+                see_list(3, user)
+            elif wishlist == '2':
+                book_id = input("Enter book_id of the book: ")
+                while check_if_id_is_valid(book_id) == False:
+                    book_id = input("You have entered wrong id! Try again: ")
+                add_to_list(3, book_id, user)
+            else:
+                book_id = input("Enter book_id of the book: ")
+                while check_if_id_is_valid(book_id) == False:
+                    book_id = input("You have entered wrong id! Try again: ")
+                remove_from_list(3, book_id, user)
+        elif second_step == '7':
             book_id = input("Enter book_id of the book: ")
             while check_if_id_is_valid(book_id) == False:
                 book_id = input("You have entered wrong id! Try again: ")
-            add_to_list(1, book_id, user)
-        else:
-            pass
-    elif second_step == "5":
-        print("Press 1 to see your reading book list ")
-        print("Press 2 to add book to your reading list")
-        print("Press 3 to remove book from your reading list")
-        wishlist = input("Enter number: ")
-        while wishlist != '1' and wishlist != '2' and wishlist != '3':
-            wishlist = input("You can enter only number betweem 1-3 (1 - see, 2 - add, 3 - remove)")
-        if wishlist == '1':
-            see_list(2, user)
-        elif wishlist == '2':
+            rate = input(f"Enter your rate for {book_id}! Enter number between 0 - 10: ")
+            while int(rate) < 0 or int(rate) > 10:
+                rate = input("Enter valid number(between 0 - 10): ")
+            rate_book(int(book_id), rate, user)
+        elif second_step == "8":
             book_id = input("Enter book_id of the book: ")
             while check_if_id_is_valid(book_id) == False:
                 book_id = input("You have entered wrong id! Try again: ")
-            add_to_list(2, book_id, user)
-        else:
-            book_id = input("Enter book_id of the book: ")
-            while check_if_id_is_valid(book_id) == False:
-                book_id = input("You have entered wrong id! Try again: ")
-            remove_from_list(1, book_id, user)
-    elif second_step == "6":
-        print("Press 1 to see your readed book list ")
-        print("Press 2 to add book to your readed book list")
-        print("Press 3 to remove book from your readed book list")
-        wishlist = input("Enter number: ")
-        while wishlist != '1' and wishlist != '2' and wishlist != '3':
-            wishlist = input("You can enter only number betweem 1-3 (1 - see, 2 - add, 3 - remove)")
-        if wishlist == '1':
-            see_list(3, user)
-        elif wishlist == '2':
-            book_id = input("Enter book_id of the book: ")
-            while check_if_id_is_valid(book_id) == False:
-                book_id = input("You have entered wrong id! Try again: ")
-            add_to_list(3, book_id, user)
-        else:
-            book_id = input("Enter book_id of the book: ")
-            while check_if_id_is_valid(book_id) == False:
-                book_id = input("You have entered wrong id! Try again: ")
-            remove_from_list(3, book_id, user)
-    elif second_step == '7':
-        book_id = input("Enter book_id of the book: ")
-        while check_if_id_is_valid(book_id) == False:
-            book_id = input("You have entered wrong id! Try again: ")
-        rate = input(f"Enter your rate for {book_id}! Enter number between 0 - 10: ")
-        while int(rate) < 0 or int(rate) > 10:
-            rate = input("Enter valid number(between 0 - 10): ")
-        rate_book(int(book_id), rate, user)
-    elif second_step == "8":
-        book_id = input("Enter book_id of the book: ")
-        while check_if_id_is_valid(book_id) == False:
-            book_id = input("You have entered wrong id! Try again: ")
-        comment = input(f"Enter your comment for {book_id}: ")
-        comment_book(int(book_id), comment, user)
-    elif second_step == "9":
-        break
+            comment = input(f"Enter your comment for {book_id}: ")
+            comment_book(int(book_id), comment, user)
+        elif second_step == "9":
+            break
+
+
+menu()
 
 
 
