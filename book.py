@@ -1,6 +1,46 @@
 import re
 import json
 
+class Book():
+    def __init__(self, author, title, genre, published_year, ISBN, series, num_in_series, pages, id_):
+        #автор, заглавие, жарн, година на издаване, isbn, страници, поредица(да/не))
+        self.title = title
+        self.author = author
+        self.genre = genre
+        self.published_year = published_year
+        self.ISBN = ISBN
+        self.pages = pages
+        self.series = series
+        self.num_in_series = num_in_series
+        self.id = id_   
+    def add_to_file(self, ):
+        data = {
+            'author' : self.author,
+            'title' : self.title,
+            'genre' : self.genre,
+            'published_year' : self.published_year,
+            'ISBN' : self.ISBN,
+            'series' : self.series,
+            'num_in_series' : self.num_in_series,
+            'pages' : self.pages,
+            'id' : self.id,
+            'rate': [],
+            'comment': []
+        }
+        with open("books.json", "r") as file:
+            file_data = json.load(file)
+        with open("books.json", "w") as file:
+            file_data['books'].append(data)
+            json.dump(file_data, file)
+    def print_book_info(self):
+        print("\n-------------------------------")
+        print(f"Book's title: {self.title}")
+        print(f"Book's author: {self.author}")
+        print(f"Book's id: {self.id}")
+        print("-------------------------------\n")
+        
+
+
 def check_if_book_is_registered(title):
     with open("books.json", "r") as file:
             file_data = json.load(file)

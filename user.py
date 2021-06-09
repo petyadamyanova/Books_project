@@ -1,6 +1,34 @@
 import re
 import json
 
+class User():
+    def __init__(self, username, imeil, password, name, surname, sex, birthday):
+        self.username = username 
+        self.imeil = imeil 
+        self.password = password 
+        self.name = name
+        self.surname = surname 
+        self.sex = sex #re
+        self.birthday = birthday #re
+    def add_to_file(self):
+        data = {
+            'username' : self.username,
+            'imeil' : self.imeil,
+            'password' : self.password,
+            'name' : self.name,
+            'surname' : self.surname,
+            'sex' : self.sex,
+            'birthday' : self.birthday,
+            'wishlist' : [],
+            'readinglist' : [],
+            'readedlist' : []
+        }
+        with open("users.json", "r") as file:
+            file_data = json.load(file)
+        with open("users.json", "w") as file:
+            file_data['users'].append(data)
+            json.dump(file_data, file)
+
 def check_if_username_is_taken(username):
     with open("users.json", "r+") as file:
             file_data = json.load(file)
