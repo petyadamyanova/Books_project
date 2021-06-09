@@ -113,9 +113,9 @@ def add_book():
         print("Uspeh")
 
 def sign_up():
-    username = input("- alowed symbols , min -  8 symbols, max - 20 symbols , example - petidamm2006, ivan_georgiev...  Enter username: ")
+    username = input("Enter username: ")
     while check_if_username_is_taken(username) == False:
-        username = input("This username is already taken ili ima greshka! Enter new username: ")
+        username = input("This username is already taken or is wrong! \n\n - alowed symbols , min -  8 symbols, max - 20 symbols , example - petidamm2006, ivan_georgiev... \n\nEnter new username: ")
     imeil = input("Enter email: ")
     while check_if_imeil_is_taken(imeil) == False:
         imeil = input("This imeil is already taken! Enter new imeil: ")
@@ -132,8 +132,13 @@ def sign_up():
         birthday = input("You have to enter your birthday in this format : dd/mm/yyyy or dd.mm.yyyy or dd-mm-yyyy. Try again: ")
     u = User(username, imeil, password, name, surname, sex, birthday)
     u.add_to_file()
-    print("Uspeh")
-    return u
+    with open("users.json", "r+") as file:
+        file_data = json.load(file)
+        users = file_data['users']
+        for user in users:
+            if username == user["username"]:
+                print("Üspeh")
+                return user
     
 def sign_in():
     rev_counter = 3
@@ -158,7 +163,7 @@ def sign_in():
                     print("Uspeh")
                     return user
     elif imeil_or_username == "2":
-        username = input("- alowed symbols , min -  8 symbols, max - 20 symbols , example - petidamm2006, ivan_georgiev...  Enter username: ")
+        username = input("Enter username: ")
         while check_if_username_is_registered(username) == False:
             username = input("This username is invalid! Try again: ")
         password = input("Enter password: ")
@@ -214,7 +219,7 @@ def print_book_with_id(id_num):
                     print("-------------------------------\n")
                     flag = 1
     if flag == 0:
-        print(f"There is not book with this id ({id_num})!")
+        print(f"\nThere is not book with this id ({id_num})!\n")
             
 
 def add_to_list(num_list, id_num, u):
@@ -322,6 +327,7 @@ def menu():
         user = sign_in()
 
     while True:
+        print("\n-------------------------------")
         print("Press 1 to see all books")
         print("Press 2 to see book info id")
         print("Press 3 to add book")
@@ -331,7 +337,9 @@ def menu():
         print("Press 7 to rate a book")
         print("Press 8 to make a comment for book")
         print("Press 9 to exit")
-        second_step = input("Enter number: ")
+        print("\n-------------------------------")
+        second_step = input("\nEnter number: ")
+        print("\n-------------------------------")
         if second_step == "1":
             print_all_books()
         elif second_step == "2":
